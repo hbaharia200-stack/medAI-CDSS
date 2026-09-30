@@ -1,0 +1,20 @@
+# Python virtual environments
+venv/
+.venv/
+env/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Python cache & compiled files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Operating system / IDE specific files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+Final_Augmented_dataset_Diseases_and_Symptoms.csv
