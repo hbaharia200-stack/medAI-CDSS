@@ -1,20 +1,32 @@
-# Python virtual environments
-venv/
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Node
+node_modules/
+dist/
+build/
+
+# Python
+__pycache__/
+*.py[cod]
 .venv/
+venv/
 env/
 
-# Jupyter Notebook checkpoints
-.ipynb_checkpoints/
+# Databases
+*.db
+*.db-journal
+.instance/
 
-# Python cache & compiled files
-__pycache__/
-*.pyc
-*.pyo
-*.pyd
+# Logs
+*.log
 
-# Operating system / IDE specific files
+# IDE / OS
 .vscode/
-.idea/
 .DS_Store
-Thumbs.db
-Final_Augmented_dataset_Diseases_and_Symptoms.csv
+
+# Temporary development files
+.shots/
+probe-test.txt
