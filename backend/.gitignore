@@ -1,0 +1,48 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+*.egg-info/
+.eggs/
+build/
+dist/
+.wheel_test_cache
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Local database / instance
+instance/
+*.db
+*.db-journal
+medai.db
+medai.db-*
+test_medai.db
+
+# Migrations bytecode cache
+.migrations-cache
+
+# Secrets — .env is local-only and never committed
+.env
+.env.*
+
+# pytest / coverage
+.pytest_cache/
+.coverage
+htmlcov/
+.coverage.*
+
+# IDE
+.vscode/
+.idea/
+*.swp
+.DS_Store
+
+# OS
+Thumbs.db
+
+# Keep example environment file
+!.env.example
