@@ -1,0 +1,757 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: 'Inter Variable'; font-style: normal; font-weight: 100 900; font-display: swap;
+  src: url('@fontsource-variable/inter/files/inter-latin-wght-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Plus Jakarta Sans Variable'; font-style: normal; font-weight: 200 800; font-display: swap;
+  src: url('@fontsource-variable/plus-jakarta-sans/files/plus-jakarta-sans-latin-wght-normal.woff2') format('woff2');
+}
+
+:root {
+  --font-body: 'Inter Variable', Inter, system-ui, sans-serif;
+  --font-heading: 'Plus Jakarta Sans Variable', 'Inter Variable', system-ui, sans-serif;
+  --type-hero: clamp(2.25rem, 3.6vw, 3.5rem);
+  --type-page: clamp(1.75rem, 2.5vw, 2.25rem);
+  --type-section: clamp(1.5rem, 2.2vw, 2rem);
+  --type-card: 1.125rem;
+  --type-body: 1rem;
+  --type-label: 0.875rem;
+  --type-caption: 0.8125rem;
+  --type-button: 0.875rem;
+  /* Light mode — professional healthcare palette */
+  --color-primary: #0A5CB8;
+  --color-primary-dark: #08468C;
+  --color-primary-light: #E3EEFA;
+  /* Large brand panel (hero, stats, footer, solid CTA cards). Light keeps the
+     classic MedAI blue block; dark swaps it for deep indigo (see below). */
+  --color-panel: #08468C;
+  --color-conf-high: #1E7E34;
+  --color-conf-high-bg: #E5F4E9;
+  --color-conf-medium: #B26A00;
+  --color-conf-medium-bg: #FDF1DE;
+  --color-conf-low: #5C6670;
+  --color-conf-low-bg: #EAEDF0;
+  --color-danger: #C5221F;
+  --color-danger-dark: #9E1B19;
+  --color-danger-bg: #FDE9E8;
+  --color-warning-bg: #FDF1DE;
+  --color-info-bg: #E3EEFA;
+  --color-accent: #0EA5E9;
+  --color-canvas: #F8FAFC;
+  --color-surface: #FFFFFF;
+  --color-elevated: #F5F7FA;
+  --color-line: #D9E0E8;
+  --color-ink: #1B1F24;
+  --color-ink-muted: #5C6670;
+  --color-ink-on-primary: #FFFFFF;
+  --color-heading: #172D46;
+  --shadow-card: 0 10px 30px -5px rgba(15, 23, 42, 0.15);
+  --shadow-card-hover: 0 14px 34px -6px rgba(15, 23, 42, 0.22);
+}
+
+:root[data-theme="dark"] {
+  /* Dark mode — deep indigo / blue-violet navy (premium, calm, clinical).
+     MedAI blue is kept as an ACCENT (buttons/links/icons), not as large surfaces. */
+  --color-primary: #3B82F6;
+  /* Medium blue kept for text/hover roles (text-primary-dark on
+     bg-primary-light, button hover) — large surfaces use --color-panel. */
+  --color-primary-dark: #2F78C9;
+  --color-primary-light: #132B59;
+  --color-panel: #0D2048;
+  --color-conf-high: #22C55E;
+  --color-conf-high-bg: rgba(34, 197, 94, 0.18);
+  --color-conf-medium: #F59E0B;
+  --color-conf-medium-bg: rgba(245, 158, 11, 0.18);
+  --color-conf-low: #8295AA;
+  --color-conf-low-bg: rgba(130, 149, 170, 0.15);
+  --color-danger: #EF4444;
+  --color-danger-dark: #DC2626;
+  --color-danger-bg: rgba(239, 68, 68, 0.18);
+  --color-warning-bg: rgba(245, 158, 11, 0.18);
+  --color-info-bg: rgba(59, 130, 246, 0.16);
+  --color-accent: #60A5FA;
+  --color-canvas: #06111F;
+  --color-surface: #08162A;
+  --color-elevated: #0D2048;
+  --color-line: rgba(95, 120, 180, 0.20);
+  --color-ink: #F4F7FB;
+  --color-ink-muted: #A8B3C7;
+  --color-ink-on-primary: #FFFFFF;
+  --color-heading: #F4F7FB;
+  --shadow-card: 0 10px 30px -4px rgba(0,0,0,0.45);
+  --shadow-card-hover: 0 14px 34px -4px rgba(0,0,0,0.55);
+}
+
+@theme {
+  --color-primary: var(--color-primary);
+  --color-primary-dark: var(--color-primary-dark);
+  --color-primary-light: var(--color-primary-light);
+  --color-panel: var(--color-panel);
+  --color-conf-high: var(--color-conf-high);
+  --color-conf-high-bg: var(--color-conf-high-bg);
+  --color-conf-medium: var(--color-conf-medium);
+  --color-conf-medium-bg: var(--color-conf-medium-bg);
+  --color-conf-low: var(--color-conf-low);
+  --color-conf-low-bg: var(--color-conf-low-bg);
+  --color-danger: var(--color-danger);
+  --color-danger-dark: var(--color-danger-dark);
+  --color-danger-bg: var(--color-danger-bg);
+  --color-warning-bg: var(--color-warning-bg);
+  --color-info-bg: var(--color-info-bg);
+  --color-accent: var(--color-accent);
+  --color-canvas: var(--color-canvas);
+  --color-surface: var(--color-surface);
+  --color-elevated: var(--color-elevated);
+  --color-line: var(--color-line);
+  --color-ink: var(--color-ink);
+  --color-ink-muted: var(--color-ink-muted);
+  --color-ink-on-primary: var(--color-ink-on-primary);
+  --color-heading: var(--color-heading);
+  --shadow-card: var(--shadow-card);
+  --shadow-card-hover: var(--shadow-card-hover);
+}
+
+/* Typewriter cursor blink — classic terminal-style. */
+@keyframes cursor-blink {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0; }
+}
+
+.animate-cursor-blink {
+  animation: cursor-blink 1s step-end infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-cursor-blink {
+    animation: none;
+  }
+}
+
+/* Scroll-triggered reveal — opacity/transform only (no display/visibility
+   toggling) so sections keep their normal space before revealing and there
+   is no layout shift/jump. Reveal-once behaviour is driven by the
+   `useScrollReveal` hook (IntersectionObserver disconnects after the first
+   intersect). Stagger delays come from per-card `transition-delay` inline
+   styles applied by the `Reveal` wrapper and are suppressed for
+   reduced-motion users via the `usePrefersReducedMotion` check there. */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 600ms ease, transform 600ms ease;
+}
+.scroll-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .scroll-reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* CSS-only typewriter for page subtitles (the small "HOSPITAL ADMIN SYSTEM" caption below each page title).
+   Unlike the top navbar heading, this replays each time the page mounts — expected for a fast ~1.2s effect. */
+@keyframes subtitle-typewriter {
+  from { width: 0; }
+  to   { width: 21ch; }
+}
+
+@keyframes subtitle-cursor-blink {
+  50% { border-color: transparent; }
+}
+
+.subtitle-typewriter {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 2px solid currentColor;
+  width: 21ch;
+  animation:
+    subtitle-typewriter 1.2s steps(21, end) forwards,
+    subtitle-cursor-blink 0.75s step-end infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .subtitle-typewriter {
+    border-right: none;
+    animation: none;
+    width: auto;
+  }
+}
+
+/* Hero headline second line — looping typewriter (types, pauses, erases, retypes).
+   Sizing is width-relative: .hero-typewriter-measure shrinks to the text's true
+   rendered width via `width: max-content`, and the inner span animates its width
+   in percent of that wrapper — so 100% always lands exactly on the last character,
+   regardless of font weight or which language's translation string is showing.
+   The blinking cursor reuses the existing subtitle-cursor-blink keyframe. */
+@keyframes hero-typewriter-loop {
+  0%   { width: 0%; }
+  35%  { width: 100%; }
+  60%  { width: 100%; }
+  95%  { width: 0%; }
+  100% { width: 0%; }
+}
+
+.hero-typewriter-measure {
+  display: inline-block;
+  width: max-content;
+}
+
+.hero-typewriter {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  vertical-align: bottom;
+  border-right: 3px solid currentColor;
+  width: 100%;
+  animation:
+    hero-typewriter-loop 6s steps(28, end) infinite,
+    subtitle-cursor-blink 0.75s step-end infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-typewriter {
+    border-right: none;
+    animation: none;
+    width: 100%;
+  }
+}
+
+/* Page/card heading accent — richer than flat ink for a designed look. */
+.heading-accent,
+.text-heading {
+  color: var(--color-heading, var(--color-primary));
+}
+
+:root[data-theme="dark"] .heading-accent {
+  color: #7BAEE8;
+}
+
+/* (legacy card-polish removed — canonical glow definition lives below) */
+
+html, body, #root {
+  height: 100%;
+}
+
+/* Smooth in-page scrolling for hash links / scrollIntoView.
+   Reduced-motion users get instant jumps (see the reduced-motion block above). */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-canvas);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-optical-sizing: auto;
+  -webkit-font-smoothing: antialiased;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+th,
+td {
+  padding: 1rem 1.5rem;
+}
+
+/* Status badge pills — soft, rounded, CSS-variable driven */
+.badge-high {
+  background-color: var(--color-conf-high-bg);
+  color: var(--color-conf-high);
+  padding: 0.375rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  white-space: nowrap;
+}
+
+.badge-medium {
+  background-color: var(--color-conf-medium-bg);
+  color: var(--color-conf-medium);
+  padding: 0.375rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  white-space: nowrap;
+}
+
+.badge-urgent {
+  background-color: var(--color-danger-bg);
+  color: var(--color-danger);
+  padding: 0.375rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  white-space: nowrap;
+}
+
+.badge-info {
+  background-color: var(--color-info-bg);
+  color: var(--color-accent);
+  padding: 0.375rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  white-space: nowrap;
+}
+
+.badge-neutral {
+  background-color: var(--color-elevated);
+  color: var(--color-ink-muted);
+  padding: 0.375rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  white-space: nowrap;
+}
+
+.badge-awaiting-review {
+  background-color: var(--color-conf-medium-bg);
+  color: var(--color-conf-medium);
+  padding: 0.375rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  white-space: nowrap;
+}
+
+:root[data-theme="dark"] .badge-awaiting-review {
+  background-color: rgba(245, 158, 11, 0.1) !important;
+  color: #fbbf24 !important;
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Floating-card soft shadows — adaptive for light & dark mode. */
+.shadow-float {
+  box-shadow:
+    0 1px 3px rgba(15, 23, 42, 0.08),
+    0 12px 24px rgba(15, 23, 42, 0.12);
+}
+
+:root[data-theme="dark"] .shadow-float {
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.45),
+    0 12px 24px rgba(0, 0, 0, 0.35);
+}
+
+/* Card polish — hover glow + subtle lift (theme-adaptive). */
+.card-polished {
+  box-shadow: var(--shadow-card);
+  border-color: var(--color-line);
+  background-color: var(--color-surface);
+  transition: box-shadow 220ms ease, border-color 220ms ease, background-color 220ms ease, transform 220ms ease;
+}
+.card-polished:hover {
+  box-shadow:
+    var(--shadow-card-hover),
+    0 0 0 1px var(--color-primary),
+    0 0 28px 4px rgba(10, 92, 184, 0.35);
+  border-color: var(--color-primary);
+  transform: translateY(-2px);
+}
+
+/* Dark card hover — restrained indigo: lighten one tonal step + strengthen the
+   1px border. No neon/cyan glow on the navy background. */
+:root[data-theme="dark"] .card-polished:hover {
+  box-shadow: var(--shadow-card-hover);
+  border-color: rgba(95, 120, 180, 0.34);
+  background-color: var(--color-elevated);
+  transform: translateY(-2px);
+}
+
+/* Lighter variant for small rows (schedule items, list rows, etc.) */
+.card-polished-light {
+  box-shadow: var(--shadow-card);
+  border-color: var(--color-line);
+  background-color: var(--color-canvas);
+  transition: box-shadow 220ms ease, border-color 220ms ease, background-color 220ms ease, transform 220ms ease;
+}
+.card-polished-light:hover {
+  box-shadow:
+    var(--shadow-card-hover),
+    0 0 0 1px var(--color-primary);
+  border-color: var(--color-primary);
+  transform: translateY(-1px);
+}
+
+:root[data-theme="dark"] .card-polished-light:hover {
+  box-shadow: var(--shadow-card-hover);
+  border-color: rgba(95, 120, 180, 0.34);
+  background-color: var(--color-surface);
+  transform: translateY(-1px);
+}
+
+/* Entrance animation for cards / grid items — staggered on mount. */
+@keyframes card-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.animate-card-in {
+  animation: card-in 360ms ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card-polished { transition: none; }
+  .card-polished:hover { transform: none; }
+  .card-polished-light { transition: none; }
+  .card-polished-light:hover { transform: none; }
+  .card-primary { transition: none; }
+  .card-primary:hover { transform: none; }
+  .card-tint { transition: none; }
+  .card-tint:hover { transform: none; }
+  .card-muted { transition: none; }
+  .card-muted:hover { transform: none; }
+  .animate-card-in { animation: none; }
+}
+
+/* Messages & Calls — soft lavender conversation canvas (theme adaptive). */
+.bg-messaging {
+  background-color: #f8f9ff;
+}
+
+:root[data-theme="dark"] .bg-messaging {
+  background-color: #081827;
+}
+
+/* Soft, diffused shadow for inner content cards. */
+.shadow-card-soft {
+  box-shadow: 0 4px 20px -5px rgba(15, 23, 42, 0.05);
+}
+
+:root[data-theme="dark"] .shadow-card-soft {
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.4),
+    0 2px 4px rgba(0, 0, 0, 0.25);
+}
+
+/* Chat bubble geometry — indigo sent bubbles, mirrored received bubbles. */
+.bubble-sent {
+  background-color: var(--color-primary-dark);
+  color: #ffffff;
+  border-radius: 18px 18px 4px 18px;
+}
+
+.bubble-received {
+  border-radius: 18px 18px 18px 4px;
+}
+
+/* Card color variants — only colors change; padding/radius/shadow come from
+   the base .card-polished rules. Unlayered rules win over layered utilities. */
+.card-primary {
+  background-color: var(--color-primary-dark);
+  border-color: var(--color-primary-dark);
+  color: #ffffff;
+}
+.card-primary .card-title,
+.card-primary h1,
+.card-primary h2,
+.card-primary h3,
+.card-primary .text-ink,
+.card-primary .text-heading,
+.card-primary .text-primary {
+  color: #ffffff;
+}
+.card-primary .text-ink-muted {
+  color: rgba(255, 255, 255, 0.8);
+}
+.card-primary .icon-chip {
+  background-color: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+}
+.card-tint {
+  background-color: var(--color-primary-light);
+}
+.card-muted {
+  background-color: var(--color-elevated);
+}
+/* Dark-mode solid card — deep indigo surface (SigniAI-inspired tonal weight,
+   not a copy of their design) with a muted border instead of the blue block. */
+:root[data-theme="dark"] .card-primary {
+  background-color: #08183A;
+  border-color: rgba(95, 120, 180, 0.20);
+}
+.card-primary,
+.card-tint,
+.card-muted {
+  transition: box-shadow 220ms ease, border-color 220ms ease, background-color 220ms ease, transform 220ms ease;
+}
+.card-primary:hover {
+  box-shadow:
+    var(--shadow-card-hover),
+    0 0 0 1px var(--color-accent),
+    0 0 28px 4px rgba(56, 189, 248, 0.45);
+  transform: translateY(-2px);
+}
+:root[data-theme="dark"] .card-primary:hover {
+  background-color: #0D2048;
+  border-color: rgba(95, 120, 180, 0.34);
+  box-shadow: var(--shadow-card-hover);
+  transform: translateY(-2px);
+}
+.card-tint:hover,
+.card-muted:hover {
+  box-shadow:
+    var(--shadow-card-hover),
+    0 0 0 1px var(--color-primary),
+    0 0 28px 4px rgba(10, 92, 184, 0.35);
+  border-color: var(--color-primary);
+  transform: translateY(-2px);
+}
+/* Dark hover — restrained indigo: lighten one tonal step, strengthen the 1px
+   border, soft elevation. No neon/cyan glow on the navy background. */
+:root[data-theme="dark"] .card-tint:hover {
+  background-color: #16336A;
+  border-color: rgba(95, 120, 180, 0.34);
+  box-shadow: var(--shadow-card-hover);
+}
+:root[data-theme="dark"] .card-muted:hover {
+  background-color: #132B59;
+  border-color: rgba(95, 120, 180, 0.34);
+  box-shadow: var(--shadow-card-hover);
+}
+
+/* Footer — dark mode uses a subtle deep-indigo gradient instead of the bright
+   blue block; light mode keeps its classic MedAI blue footer. */
+:root[data-theme="dark"] .site-footer {
+  background-color: transparent;
+  background-image: linear-gradient(135deg, #07172F, #0B1E43, #102752);
+  border-top-color: rgba(95, 120, 180, 0.20);
+}
+
+/* Landing hero — the blue panel dissolves into the photo on desktop (lg+).
+   Pseudo-element only: markup, layout, image, typography and the stacked mobile
+   hero are untouched, and below lg no curve or wash is generated at all.
+
+   WHY THE PREVIOUS RAMPS STILL SHOWED A LINE: the panel is opaque, so the wash
+   must be opaque too at the exact x where the panel stops, and from there it has
+   to lose its opacity *gently*. The old ramps were only ~0.6 opaque at that x
+   and then dropped 0.6 inside ~16px — the eye could still point at one line and
+   say "here the panel ends".
+
+   This is ONE pseudo-element, ONE colour (the panel's own token) and ONE alpha
+   ramp in two parts that composite into a single wash:
+     · body — full height and LINEAR. Its head is a deliberate near-plateau so the
+       fade has no visible beginning, and it is complete by 50% of the box, which
+       is what keeps the blue compact enough to end before the nurse;
+     · veil — ELLIPTICAL, centred on that edge above the middle with a shallow
+       vertical radius, so the wash blends longest across the upper half and has
+       already gone by the lower third — where the nurse's forearm, hand and glove
+       are — leaving the arm in its own photographic colours.
+   Both parts are smoothstep complements: 1.0 at the panel edge with a slope of
+   ~0, and ~0 again at the tail. The near-zero onset slope is what removes any
+   perceived vertical line: the last faint tint is gone ~50-75px past the edge
+   and nothing at all remains past ~60-86px, so it reads as a soft dissolve and
+   never as a blue overlay sitting on the photograph.
+
+   The alpha lives in `mask-image` so the panel colour stays the single source of
+   truth, which keeps it correct in the dark theme too. The box is sized in vw so
+   the wash keeps its proportion of the hero at every desktop width. `z-index: -1`
+   places it above the panel's own background but below the hero copy, so the
+   heading, pill and buttons are never tinted. */
+@media (min-width: 1024px) {
+  .hero-curve-left::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    /* Anchored on the panel's right edge with a 32px overlap. Narrow on purpose:
+       the fade must be spent before the nurse's arm, so the visible blue lives
+       inside the first ~90px and only a trace survives past ~90-130px. Sized in
+       vw so it keeps the same proportion of the hero at every desktop width. */
+    left: 100%;
+    margin-left: -32px;
+    width: clamp(110px, 11vw, 175px);
+    background-color: var(--color-panel);
+    /* Mask layers composite as a union, so these two ramps read as one wash.
+       Both are smoothstep complements: ~0 slope where they start and where they
+       end, so the fade has no visible beginning and no visible finish. */
+    mask-image:
+      /* veil — the curve: blends longest across the upper half and tapers away
+         before the lower third, where the nurse's forearm and hand are */
+      radial-gradient(
+        72% 40% at 18% 36%,
+        rgb(0 0 0 / 0.85) 0%,
+        rgb(0 0 0 / 0.72) 25%,
+        rgb(0 0 0 / 0.5) 50%,
+        rgb(0 0 0 / 0.26) 70%,
+        rgb(0 0 0 / 0.08) 85%,
+        transparent 100%
+      ),
+      /* body — seam guard + the fade itself: full height, opaque from 0-18% of the
+         box (the 32px overlap plus the panel edge), then a steady fall that is
+         over at ~78% of the box */
+      linear-gradient(
+        90deg,
+        #000 0%,
+        #000 18%,
+        rgb(0 0 0 / 0.986) 24%,
+        rgb(0 0 0 / 0.962) 28%,
+        rgb(0 0 0 / 0.922) 32%,
+        rgb(0 0 0 / 0.862) 36%,
+        rgb(0 0 0 / 0.782) 40%,
+        rgb(0 0 0 / 0.68) 44%,
+        rgb(0 0 0 / 0.56) 48%,
+        rgb(0 0 0 / 0.424) 52%,
+        rgb(0 0 0 / 0.276) 56%,
+        rgb(0 0 0 / 0.128) 60%,
+        rgb(0 0 0 / 0.026) 64%,
+        transparent 68%
+      );
+    mask-repeat: no-repeat;
+    z-index: -1;
+    pointer-events: none;
+  }
+
+}
+
+/* Shared typography: base rules preserve intentional component size overrides. */
+@layer base {
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: -0.025em;
+    text-wrap: balance;
+  }
+  h1 { font-size: var(--type-page); }
+  h2 { font-size: var(--type-section); }
+  h3, h4 { font-size: var(--type-card); }
+  button, input, select, textarea { font-family: var(--font-body); }
+  button { font-weight: 600; letter-spacing: -0.01em; }
+  label { font-size: var(--type-label); line-height: 1.5; }
+  th { font-size: var(--type-caption); font-weight: 600; line-height: 1.5; letter-spacing: 0.025em; }
+  td { font-size: var(--type-label); line-height: 1.6; font-variant-numeric: tabular-nums; }
+  nav a, aside a { font-size: var(--type-label); letter-spacing: -0.01em; }
+}
+.type-hero { font-size: var(--type-hero); font-weight: 700; line-height: 1.14; letter-spacing: -0.04em; }
+.type-page { font-size: var(--type-page); font-weight: 700; line-height: 1.25; letter-spacing: -0.03em; }
+.type-section { font-size: var(--type-section); font-weight: 700; line-height: 1.3; letter-spacing: -0.025em; }
+.type-card { font-family: var(--font-heading); font-size: var(--type-card); font-weight: 650; line-height: 1.4; letter-spacing: -0.02em; }
+.type-body { font-size: var(--type-body); line-height: 1.7; }
+.type-label { font-size: var(--type-label); font-weight: 600; line-height: 1.5; }
+.type-caption { font-size: var(--type-caption); line-height: 1.6; }
+.type-button { font-size: var(--type-button); font-weight: 600; line-height: 1.4; letter-spacing: -0.01em; }
+.hero-description { font-size: clamp(1rem, 1.4vw, 1.125rem); line-height: 1.75; max-width: 48ch; }
+
+/* ===========================================================================
+   Landing-page card hover aura.
+
+   Adds a soft indigo/blue-violet edge glow plus a small lift to the landing
+   cards, on top of whatever each card variant already does. Two rules matter
+   here:
+
+   1. The card's own background is NEVER changed. The navy panels stay navy and
+      the light panels stay light — this is an aura around the edges, not a
+      purple fill.
+   2. This block is last in the file on purpose. Several existing hover rules
+      (:root[data-theme="dark"] .card-primary:hover, .card-muted:hover, …) share
+      the same specificity, so they must come first for the aura to win.
+   =========================================================================== */
+.card-aura {
+  transition: box-shadow 220ms ease, border-color 220ms ease, transform 220ms ease;
+}
+.card-aura:hover {
+  border-color: rgba(99, 102, 241, 0.40);
+  box-shadow:
+    var(--shadow-card-hover),
+    0 8px 28px rgba(76, 29, 149, 0.20),
+    0 0 22px rgba(59, 130, 246, 0.10);
+  transform: translateY(-3px);
+}
+:root[data-theme="dark"] .card-aura:hover {
+  border-color: rgba(129, 140, 248, 0.42);
+  box-shadow:
+    var(--shadow-card-hover),
+    0 8px 30px rgba(3, 8, 26, 0.60),
+    0 0 24px rgba(99, 102, 241, 0.16);
+  transform: translateY(-3px);
+}
+
+/* Icons that already carry a blue accent may brighten a little. The card
+   background stays exactly as it was. */
+.card-aura .icon-chip {
+  transition: filter 200ms ease, background-color 200ms ease, color 200ms ease;
+}
+.card-aura:hover .icon-chip { filter: brightness(1.12); }
+
+/* Keyboard users get a visible ring, but only if the card is actually a
+   control. Static landing cards are sections, so they are skipped. */
+a.card-aura:focus-visible,
+button.card-aura:focus-visible,
+[tabindex]:not([tabindex="-1"]).card-aura:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+  border-radius: 1rem;
+}
+
+/* Reduced motion: no lift. The border/glow colour change stays, because a
+   colour change is not motion, and it keeps the affordance discoverable. */
+@media (prefers-reduced-motion: reduce) {
+  .card-aura { transition: none; }
+  .card-aura:hover { transform: none; }
+  :root[data-theme="dark"] .card-aura:hover { transform: none; }
+  .card-aura .icon-chip { transition: none; }
+}
+
+/* Quick-link tiles (Diagnosis / Patients / Appointments / Analytics) are real
+   buttons, so they get a transparent 1px border by default. That keeps the
+   border brightening on hover from shifting the layout. */
+.link-aura {
+  border: 1px solid transparent;
+  transition: box-shadow 220ms ease, border-color 220ms ease, background-color 220ms ease, transform 220ms ease;
+}
+.link-aura:hover {
+  border-color: rgba(99, 102, 241, 0.40);
+  box-shadow:
+    0 8px 28px rgba(76, 29, 149, 0.20),
+    0 0 22px rgba(59, 130, 246, 0.10);
+  transform: translateY(-3px);
+}
+:root[data-theme="dark"] .link-aura:hover {
+  border-color: rgba(129, 140, 248, 0.42);
+  box-shadow:
+    0 8px 30px rgba(3, 8, 26, 0.60),
+    0 0 24px rgba(99, 102, 241, 0.16);
+}
+.link-aura:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .link-aura { transition: none; }
+  .link-aura:hover { transform: none; }
+  :root[data-theme="dark"] .link-aura:hover { transform: none; }
+}
